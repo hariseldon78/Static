@@ -101,6 +101,9 @@ public struct Row: Hashable, Equatable {
 
     /// Image for the row
     public var image: UIImage?
+    
+    // Closure to call for non standard setups (ex: set imageview from url, change cell colors)
+    public var setupClosure:((CellType)->())?
 
     /// Action to run when the row is selected.
     public var selection: Selection?
@@ -134,7 +137,7 @@ public struct Row: Hashable, Equatable {
     // MARK: - Initializers
 
     public init(text: String? = nil, detailText: String? = nil, selection: Selection? = nil,
-        image: UIImage? = nil, accessory: Accessory = .None, cellClass: CellType.Type? = nil, context: Context? = nil, editActions: [EditAction] = [], UUID: String = NSUUID().UUIDString) {
+        image: UIImage? = nil, accessory: Accessory = .None, cellClass: CellType.Type? = nil, context: Context? = nil, editActions: [EditAction] = [], UUID: String = NSUUID().UUIDString, setupClosure: ((CellType)->())? = nil) {
         
         self.UUID = UUID
         self.text = text
@@ -145,6 +148,7 @@ public struct Row: Hashable, Equatable {
         self.cellClass = cellClass ?? Value1Cell.self
         self.context = context
         self.editActions = editActions
+        self.setupClosure = setupClosure
     }
 }
 
