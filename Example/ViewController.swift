@@ -34,9 +34,17 @@ class ViewController: TableViewController {
                 Row(text: "Value 1", detailText: "with an image", image: UIImage(named: "Settings"), cellClass: Value1Cell.self),
                 Row(text: "Value 2", detailText: "Detail", cellClass: Value2Cell.self),
                 Row(text: "Subtitle", detailText: "Detail", cellClass: SubtitleCell.self),
-                Row(text: "Button", detailText: "Detail", selection: { [unowned self] in
-                    self.showAlert(title: "Row Selection")
-                }, cellClass: ButtonCell.self),
+                Row(text: "Button",
+                    detailText: "Detail",
+                    selection: { [unowned self] in
+                        self.showAlert(title: "Row Selection")
+                    },
+                    cellClass: ButtonCell.self,
+                    setupClosure:{ cell in
+                        guard let cell=cell as? UITableViewCell else {return}
+                        cell.backgroundColor=UIColor.red
+                	}),
+                
                 Row(text: "Custom from nib", cellClass: NibTableViewCell.self)
             ], footer: "This is a section footer."),
             Section(header: "Accessories", rows: [

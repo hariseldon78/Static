@@ -183,6 +183,10 @@ extension DataSource: UITableViewDataSource {
 
             if let cell = tableCell as? Cell {
                 cell.configure(row: row)
+                if let setup=row.setupClosure
+                {
+                    setup(cell)
+                }
             }
 
             return tableCell
